@@ -7,18 +7,20 @@ var audioCtx = new AudioContext();
 var analyser = audioCtx.createAnalyser();
 
 //　マイクの音を取り込む処理
-function mic(){
-    navigator.webkitGetUserMedia(
-    {audio:true},
-    function(stream){
-    //　MediaStreamSourceNodeを生成し，マイクからの入力を格納する
-    var mediastreamsource = audioCtx.createMediaStreamSource(stream);
-    //　MediaStreamSourceNode→AnalyserNode
-    mediastreamsource.connect(analyser);
-    },function(e){
-           console.log("error");
+function mic() {
+    navigator.webkitGetUserMedia({
+            audio: true
+        },
+        function(stream) {
+            //　MediaStreamSourceNodeを生成し，マイクからの入力を格納する
+            var mediastreamsource = audioCtx.createMediaStreamSource(stream);
+            //　MediaStreamSourceNode→AnalyserNode
+            mediastreamsource.connect(analyser);
+        },
+        function(e) {
+            console.log("error");
         }
     );
 }
 
-window.addEventListener("load",mic,false);
+window.addEventListener("load", mic, false);
