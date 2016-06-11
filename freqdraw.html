@@ -1,14 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="utf-8">
-    <title>音声測定アプリケーション</title>
-    <link rel="stylesheet" type="text/css" href="freq.css">
-</head>
-<body>
-<!-- 中央寄せ -->
-<div align="center">
+  <meta charset="utf-8">
+  <title>Sound Spectrogram</title>
+  <link rel="stylesheet" type="text/css" href="freq.css">
+  <script src="freq.js"></script>
+  <script src="freqdraw.js"></script></head>
+  <body>
+  <!-- 中央寄せ -->
+  <div align="center">
     <!-- Canvas -->
     <!-- 余白 -->
     <canvas width="880" height="10"></canvas><br>
@@ -20,11 +20,10 @@
     <canvas id="heightCanvas" width="890" height="30"></canvas>
     <br>
     <!-- ボタン -->
-    <p><a><img src="play.png" onclick="start()" width="80" height="80"></a>
-        <a><img src="pause.png" onclick="stop()" width="80" height="80"></a></p>
-</div>
-<!-- JS読み込み -->
-<script src="freq.js"></script>
-<script src="freqdraw.js"></script>
+    <p>
+      <button type="button" id="start"><img src="play.png"></button>
+      <button type="button" id="stop"><img src="pause.png"></button>
+    </p>
+  </div>
 </body>
 </html>

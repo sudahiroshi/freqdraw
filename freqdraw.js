@@ -1,9 +1,11 @@
 // windowが読み込まれてから実行
-window.onload = function(){
-    back();
-    db();
-    par();
-}
+window.addEventListener( 'load', function(){
+  back();
+  db();
+  par();
+  document.getElementById('start').addEventListener('click',function(){start();});
+  document.getElementById('stop').addEventListener('click',function(){stop();});
+});
 
 //　背景
 function back(){
@@ -312,7 +314,6 @@ function getAverageVolume(array) {
 
 //　描画開始
 function start(){
-
     freqDraw();
 }
 
