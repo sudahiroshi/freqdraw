@@ -17,9 +17,11 @@ function mic() {
 		}).then( function(stream) {
             // MediaStreamSourceNodeを生成し，マイクからの入力を格納する
             var mediastreamsource = audioCtx.createMediaStreamSource(stream);
+			// see : http://dotnsf.blog.jp/archives/1053182894.html
+			window.dotnsf_hack_for_mozzila = mediastreamsource;
             // MediaStreamSourceNode→AnalyserNode
             mediastreamsource.connect(analyser);
-		}).catch( function(reason) {
+		}, function(reason) {
             console.log("error");
 		});
 	} else {

@@ -11,23 +11,23 @@ window.addEventListener('load', function() {
     });
 });
 
-//　背景
+// 背景
 function back() {
     var canvas = document.getElementById('mainCanvas');
     var ctx = canvas.getContext('2d');
 
-    //　破線
+    // 破線
     ctx.setLineDash([1, 6]);
     ctx.save();
 
-    //　背景
+    // 背景
     ctx.beginPath();
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
     ctx.closePath();
 
-    //　枠線
-    //　縦
+    // 枠線
+    // 縦
     ctx.setLineDash([]);
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -36,7 +36,7 @@ function back() {
     ctx.lineTo(1, mainCanvas.height);
     ctx.closePath();
     ctx.stroke();
-    //　横
+    // 横
     ctx.beginPath();
     ctx.strokeStyle = "red";
     ctx.moveTo(0, mainCanvas.height - 1);
@@ -45,8 +45,8 @@ function back() {
     ctx.stroke();
     ctx.restore();
 
-    //　横のグリッド
-    //　90db
+    // 横のグリッド
+    // 90db
     ctx.beginPath();
     ctx.strokeStyle = "black";
     ctx.moveTo(0, mainCanvas.height / 7);
@@ -54,7 +54,7 @@ function back() {
     ctx.closePath();
     ctx.stroke();
 
-    //　80db
+    // 80db
     ctx.beginPath();
     ctx.strokeStyle = "black";
     ctx.moveTo(0, mainCanvas.height / 7 * 2);
@@ -62,7 +62,7 @@ function back() {
     ctx.closePath();
     ctx.stroke();
 
-    //　70db
+    // 70db
     ctx.beginPath();
     ctx.strokeStyle = "black";
     ctx.moveTo(0, mainCanvas.height / 7 * 3);
@@ -70,7 +70,7 @@ function back() {
     ctx.closePath();
     ctx.stroke();
 
-    //　60db
+    // 60db
     ctx.beginPath();
     ctx.strokeStyle = "black";
     ctx.moveTo(0, mainCanvas.height / 7 * 4);
@@ -78,7 +78,7 @@ function back() {
     ctx.closePath();
     ctx.stroke();
 
-    //　50db
+    // 50db
     ctx.beginPath();
     ctx.strokeStyle = "black";
     ctx.moveTo(0, mainCanvas.height / 7 * 5);
@@ -86,7 +86,7 @@ function back() {
     ctx.closePath();
     ctx.stroke();
 
-    //　40db
+    // 40db
     ctx.beginPath();
     ctx.strokeStyle = "black";
     ctx.moveTo(0, mainCanvas.height / 7 * 6);
@@ -94,7 +94,7 @@ function back() {
     ctx.closePath();
     ctx.stroke();
 
-    //　縦のグリッド
+    // 縦のグリッド
     //100Hz
     ctx.beginPath();
     ctx.strokeStyle = "black";
@@ -176,29 +176,29 @@ function db() {
     ctx3.fillText(' 30', 3, 325, 100);
 }
 
-//　周波数領域の描画
+// 周波数領域の描画
 function freqDraw() {
     timerId = setInterval(function() {
         var canvas = document.getElementById('mainCanvas');
         var canvasCtx = canvas.getContext('2d');
 
-        //　30db~100db
+        // 30db~100db
         var min = 30;
         var max = 100;
         var range = max - min;
 
-        //　スペクトラムのデータを取得
+        // スペクトラムのデータを取得
         var spectrum = new Float32Array(analyser.frequencyBinCount);
         analyser.getFloatFrequencyData(spectrum);
 
-        //　Canvasをクリア
+        // Canvasをクリア
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-        //　背景
+        // 背景
         back();
-        //　直線
+        // 直線
         canvasCtx.setLineDash([]);
         //    ctx.strokeStyle = "black";
-        //　描画
+        // 描画
         canvasCtx.beginPath();
         for (var i = 0, len = spectrum.length; i < len; i++) {
             // x座標の算出 (元波形の1/8,~2500Hz)
@@ -274,13 +274,13 @@ function freqDraw3() {
 
         //canvasCtx.lineWidth = 2;
         //canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
-        //　Canvasをクリア
+        // Canvasをクリア
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-        //　背景
+        // 背景
         back();
-        //　直線
+        // 直線
         //canvasCtx.setLineDash([0,0]);
-        //　描画
+        // 描画
         canvasCtx.beginPath();
 
         var sliceWidth = canvas.width * 1.0 / bufferLength;
@@ -316,12 +316,12 @@ function getAverageVolume(array) {
     return average;
 }
 
-//　描画開始
+// 描画開始
 function start() {
     freqDraw();
 }
 
-//　描画を一時停止
+// 描画を一時停止
 function stop() {
     clearInterval(timerId);
 }
