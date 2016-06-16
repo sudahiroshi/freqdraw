@@ -8,7 +8,7 @@ var analyser = audioCtx.createAnalyser();
 
 //　マイクの音を取り込む処理
 function mic() {
-    navigator.webkitGetUserMedia({
+    navigator.GetUserMedia({
             audio: true
         },
         function(stream) {
