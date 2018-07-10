@@ -190,6 +190,7 @@ function freqDraw() {
         // スペクトラムのデータを取得
         var spectrum = new Float32Array(analyser.frequencyBinCount);
         analyser.getFloatFrequencyData(spectrum);
+        var len = spectrum.length;
 
         // Canvasをクリア
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -200,7 +201,7 @@ function freqDraw() {
         //    ctx.strokeStyle = "black";
         // 描画
         canvasCtx.beginPath();
-        for (var i = 0, len = spectrum.length; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             // x座標の算出 (元波形の1/8,~2500Hz)
             var x = (i / len) * 5 * canvas.width;
             // y座標の算出
@@ -208,9 +209,34 @@ function freqDraw() {
 
             (i === 0) ? canvasCtx.moveTo(x + 1, y): canvasCtx.lineTo(x + 1, y);
         }
-
         canvasCtx.strokeStyle = "#0000ff";
         canvasCtx.stroke();
+
+        var max = spectrum[0];
+        var max_position = 0;
+        for( var i=0; i<len; i++ ) {
+            if( max < spectrum[i] ) {
+                max = spectrum[i];
+                max_position = i;
+            }
+        }
+        // var i=0;
+        // for( ; i<len; i++ ) {
+        //     if (spectrum[i] > -50) break;
+        // }
+        // var yy=spectrum[i-1];
+        // for( var j=i; j<len; j++ ) {
+        //     if( yy - spectrum[i] == 0 ) break;
+        //     yy = spectrum[i];
+        //     max_position = j;
+        // }
+        canvasCtx.beginPath();
+        var x = ( max_position/len) * 5 * canvas.width;
+        canvasCtx.moveTo( x, 0 );
+        canvasCtx.lineTo( x, canvas.height );
+        canvasCtx.stroke();
+
+        document.getElementById('freq').innerHTML = max_position * 22.0;
 
     }, 10);
 }
