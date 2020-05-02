@@ -1,6 +1,7 @@
 // AudioContext
-window.AudioContext = window.AudioContext || window.webktAudioContext;
-var audioCtx = new AudioContext();
+window.audio = window.AudioContext || window.webkitAudioContext;
+console.log( window.audio );
+var audioCtx = new window.audio();
 
 // MediaStreamSource
 

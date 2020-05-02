@@ -3,17 +3,75 @@ window.addEventListener('load', function() {
     back();
     db();
     par();
-    document.getElementById('start').addEventListener('click', function() {
+    let mouse_condition = false;
+    document.querySelector('#start').addEventListener('click', function() {
         start();
     });
-    document.getElementById('stop').addEventListener('click', function() {
+    document.querySelector('#stop').addEventListener('click', function() {
         stop();
     });
+    this.document.querySelector('#fundamental_check').addEventListener('click', (ev) => {
+        let elm = ev.srcElement;
+        elm.classList.toggle("on");
+        if( elm.classList.contains('on') ) {
+            this.document.querySelector('#fundamental').style.display="block";
+        } else {
+            this.document.querySelector('#fundamental').style.display="none";
+        }
+    });
+    this.document.querySelector('#fundamental').addEventListener('mousemove', (ev) => {
+        let x = ev.offsetX;
+        let y = ev.offsetY;
+        let ctx = ev.srcElement.getContext('2d');
+        let w = ev.srcElement.width;
+        let h = ev.srcElement.height;
+        ctx.clearRect(0, 0, w, h);
+        ctx.strokeStyle = "red";
+        for( let i =1; i<10; i++ ) {
+            ctx.beginPath();
+            ctx.moveTo( x*i, 0 );
+            ctx.lineTo( x*i, h );
+            ctx.stroke();
+        }
+    });
+    this.document.querySelector('#pen_check').addEventListener('click', (ev) => {
+        let elm = ev.srcElement;
+        elm.classList.toggle("on");
+        if( elm.classList.contains('on') ) {
+            this.document.querySelector('#pen').style.display="block";
+        } else {
+            this.document.querySelector('#pen').style.display="none";
+        }
+    });
+    this.document.querySelector('#pen').addEventListener('mousemove', (ev) => {
+        if( mouse_condition) {
+            let rect = ev.target.getBoundingClientRect();
+            let x = ev.clientX - rect.left;
+            let y = ev.clientY - rect.top;
+            let ctx = ev.srcElement.getContext('2d');
+            ctx.strokeStyle = "red";
+            ctx.fillStyle = "rgb(200,50,50)";
+            ctx.beginPath();
+            ctx.arc( x, y, 5, 0, Math.PI*2, false );
+            ctx.fill();
+        }
+    });
+    this.document.querySelector('#pen').addEventListener('mousedown', (ev) => {
+        mouse_condition = true;
+    });
+    this.document.querySelector('#pen').addEventListener('mouseup', (ev) => {
+        mouse_condition = false;
+    });
+    this.document.querySelector('#clear').addEventListener('click', (ev) => {
+        let pen = this.document.querySelector('#pen');
+        let ctx = pen.getContext('2d');
+        ctx.clearRect( 0, 0, pen.width, pen.height );
+    })
 });
 
 // 背景
 function back() {
-    var canvas = document.getElementById('mainCanvas');
+    var canvas = document.getElementById('background');
     var ctx = canvas.getContext('2d');
 
     // 破線
@@ -23,7 +81,7 @@ function back() {
     // 背景
     ctx.beginPath();
     ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.closePath();
 
     // 枠線
@@ -31,66 +89,63 @@ function back() {
     ctx.setLineDash([]);
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.strokeStyle = "red";
-    ctx.moveTo(1, 0);
-    ctx.lineTo(1, mainCanvas.height);
-    ctx.closePath();
+    ctx.strokeStyle = "black";
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, canvas.height);
+    ctx.lineTo(canvas.width, canvas.height );
+    ctx.lineTo(canvas.width,0);
+    ctx.lineTo(0,0);
+    //ctx.closePath();
     ctx.stroke();
-    // 横
-    ctx.beginPath();
-    ctx.strokeStyle = "red";
-    ctx.moveTo(0, mainCanvas.height - 1);
-    ctx.lineTo(mainCanvas.width, mainCanvas.height - 1);
-    ctx.closePath();
-    ctx.stroke();
+
     ctx.restore();
 
     // 横のグリッド
     // 90db
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(0, mainCanvas.height / 7);
-    ctx.lineTo(mainCanvas.width, mainCanvas.height / 7);
+    ctx.moveTo(0, canvas.height / 7);
+    ctx.lineTo(canvas.width, canvas.height / 7);
     ctx.closePath();
     ctx.stroke();
 
     // 80db
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(0, mainCanvas.height / 7 * 2);
-    ctx.lineTo(mainCanvas.width, mainCanvas.height / 7 * 2);
+    ctx.moveTo(0, canvas.height / 7 * 2);
+    ctx.lineTo(canvas.width, canvas.height / 7 * 2);
     ctx.closePath();
     ctx.stroke();
 
     // 70db
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(0, mainCanvas.height / 7 * 3);
-    ctx.lineTo(mainCanvas.width, mainCanvas.height / 7 * 3);
+    ctx.moveTo(0, canvas.height / 7 * 3);
+    ctx.lineTo(canvas.width, canvas.height / 7 * 3);
     ctx.closePath();
     ctx.stroke();
 
     // 60db
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(0, mainCanvas.height / 7 * 4);
-    ctx.lineTo(mainCanvas.width, mainCanvas.height / 7 * 4);
+    ctx.moveTo(0, canvas.height / 7 * 4);
+    ctx.lineTo(canvas.width, canvas.height / 7 * 4);
     ctx.closePath();
     ctx.stroke();
 
     // 50db
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(0, mainCanvas.height / 7 * 5);
-    ctx.lineTo(mainCanvas.width, mainCanvas.height / 7 * 5);
+    ctx.moveTo(0, canvas.height / 7 * 5);
+    ctx.lineTo(canvas.width, canvas.height / 7 * 5);
     ctx.closePath();
     ctx.stroke();
 
     // 40db
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(0, mainCanvas.height / 7 * 6);
-    ctx.lineTo(mainCanvas.width, mainCanvas.height / 7 * 6);
+    ctx.moveTo(0, canvas.height / 7 * 6);
+    ctx.lineTo(canvas.width, canvas.height / 7 * 6);
     ctx.closePath();
     ctx.stroke();
 
@@ -98,48 +153,48 @@ function back() {
     //100Hz
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(mainCanvas.width / 2 - 374, 0);
-    ctx.lineTo(mainCanvas.width / 2 - 374, mainCanvas.height);
+    ctx.moveTo(canvas.width / 2 - 374, 0);
+    ctx.lineTo(canvas.width / 2 - 374, canvas.height);
     ctx.closePath();
     ctx.stroke();
 
     //500Hz
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(mainCanvas.width / 2 - 300, 0);
-    ctx.lineTo(mainCanvas.width / 2 - 300, mainCanvas.height);
+    ctx.moveTo(canvas.width / 2 - 300, 0);
+    ctx.lineTo(canvas.width / 2 - 300, canvas.height);
     ctx.closePath();
     ctx.stroke();
 
     //1000Hz
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(mainCanvas.width / 2 - 210, 0);
-    ctx.lineTo(mainCanvas.width / 2 - 210, mainCanvas.height);
+    ctx.moveTo(canvas.width / 2 - 210, 0);
+    ctx.lineTo(canvas.width / 2 - 210, canvas.height);
     ctx.closePath();
     ctx.stroke();
 
     //2000Hz
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(mainCanvas.width / 2 - 30, 0);
-    ctx.lineTo(mainCanvas.width / 2 - 30, mainCanvas.height);
+    ctx.moveTo(canvas.width / 2 - 30, 0);
+    ctx.lineTo(canvas.width / 2 - 30, canvas.height);
     ctx.closePath();
     ctx.stroke();
 
     //3000Hz
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(mainCanvas.width / 2 + 150, 0);
-    ctx.lineTo(mainCanvas.width / 2 + 150, mainCanvas.height);
+    ctx.moveTo(canvas.width / 2 + 150, 0);
+    ctx.lineTo(canvas.width / 2 + 150, canvas.height);
     ctx.closePath();
     ctx.stroke();
 
     //4000Hz
     ctx.beginPath();
     ctx.strokeStyle = "black";
-    ctx.moveTo(mainCanvas.width / 2 + 332, 0);
-    ctx.lineTo(mainCanvas.width / 2 + 332, mainCanvas.height);
+    ctx.moveTo(canvas.width / 2 + 332, 0);
+    ctx.lineTo(canvas.width / 2 + 332, canvas.height);
     ctx.closePath();
     ctx.stroke();
 
@@ -148,7 +203,7 @@ function back() {
 
 // 周波数表記
 function par() {
-    var canvas2 = document.getElementById('heightCanvas');
+    var canvas2 = document.getElementById('XAxis');
     var ctx2 = canvas2.getContext('2d');
     ctx2.font = "13px Helvetica";
     ctx2.fillText('100', 80, 11, 100);
@@ -162,7 +217,7 @@ function par() {
 
 // dB表記
 function db() {
-    var canvas3 = document.getElementById('widthCanvas');
+    var canvas3 = document.getElementById('YAxis');
     var ctx3 = canvas3.getContext('2d');
     ctx3.font = "14px Helvetica";
     ctx3.fillText('(dB)', 3, 13, 100);
@@ -179,7 +234,7 @@ function db() {
 // 周波数領域の描画
 function freqDraw() {
     timerId = setInterval(function() {
-        var canvas = document.getElementById('mainCanvas');
+        var canvas = document.getElementById('graph');
         var canvasCtx = canvas.getContext('2d');
 
         // 30db~100db
@@ -194,7 +249,7 @@ function freqDraw() {
         // Canvasをクリア
         canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         // 背景
-        back();
+        //back();
         // 直線
         canvasCtx.setLineDash([]);
         //    ctx.strokeStyle = "black";

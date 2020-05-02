@@ -11,23 +11,27 @@
 
 <body>
     <!-- 中央寄せ -->
-    <div align="center">
-        <!-- Canvas -->
-        <!-- 余白 -->
-        <canvas width="880" height="10"></canvas>
-        <br>
+    <div id="main">
         <!-- 縦軸 -->
-        <canvas id="widthCanvas" width="30" height="325"></canvas>
+        <canvas id="YAxis" width="30" height="325"></canvas>
         <!-- 描画 -->
-        <canvas id="mainCanvas" width="800" height="300"></canvas>
+        <canvas id="graph" width="800" height="300"></canvas>
+        <canvas id="background" width="800" height="300"></canvas>
+        <canvas id="pen" width="800" height="300"></canvas>
+        <canvas id="fundamental" width="800" height="300"></canvas>
         <!-- 横軸 -->
-        <canvas id="heightCanvas" width="890" height="30"></canvas>
+        <canvas id="XAxis" width="890" height="30"></canvas>
         <br>
         <!-- ボタン -->
-        <p>
+        <div id="control_panel">
             <button type="button" id="start"><img src="play.png"></button>
             <button type="button" id="stop"><img src="pause.png"></button>
-        </p>
+            <div id="switch">
+                <p class="toggle" id="fundamental_check">Fundamental Tone</p>
+                <p class="toggle" id="pen_check">Pen</p>
+                <p class="toggle" id="clear">Clear</p>
+            </div>
+        </div>
     </div>
 </body>
 

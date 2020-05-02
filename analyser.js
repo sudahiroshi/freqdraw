@@ -7,7 +7,7 @@ class Analyser {
         this.analyser.fftSize = 256;
 
         navigator.mediaDevices.getUserMedia( {
-            audio: true
+            audio: { deviceId: "9A2ED184C5A6371C0F5E4556E832B0505B282296"}
         }).then( stream => {
             // MediaStreamSourceNodeを生成し，マイクからの入力を格納する
             let source = audioCtx.createMediaStreamSource(stream);

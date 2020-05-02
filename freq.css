@@ -1,3 +1,66 @@
+#main {
+	position: relative;
+	width: 890px;
+	height: 325px;
+	top: 100px;
+	left: 30px;
+}
+
+#YAxis {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#XAxis {
+	position: absolute;
+	top: 325px;
+	left: -30px;
+	width: 890px;
+}
+
+#graph {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	z-index: 2;
+}
+
+#background {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	z-index: 1;
+}
+
+#pen {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	z-index: 4;
+	display: none;
+}
+
+#fundamental {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	z-index: 3;
+	display: none;
+}
+
+#control_panel {
+	position: absolute;
+	top: 360px;
+}
+
+.toggle {
+	margin: 0px;
+	height: 20px;
+}
+.on {
+	background-color: #70c0c0;
+}
 /*ボタンに透過効果をつける*/
 a img {
 	-webkit-transition: 0.3s ease-in-out;
