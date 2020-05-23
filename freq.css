@@ -113,3 +113,68 @@ a:hover img {
 	opacity: 0.6;
 	filter: alpha(opacity=60);
 }
+
+.toggle_button:focus:hover{
+	outline: none;
+}
+
+.toggle_button{
+	appearance: none;
+	-webkit-appearance: none;
+	-ms-appearance: none;
+	-moz-appearance: none;
+
+	display: inline-block;
+	vertical-align: top;
+	width: 100px;
+	height: 64px;
+	margin: 0;
+
+	border-radius: 8px;
+	border: 1px solid #aaa;
+
+	text-align: center;
+	line-height: 60px;
+	font-size: 20px;
+
+	cursor: pointer;
+
+	transition: 200ms;
+  background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
+
+    linear-gradient(180deg, hsl(0,0%,78%)  0%, 
+    hsl(0,0%,90%) 47%, 
+    hsl(0,0%,78%) 53%,
+    hsl(0,0%,70%)100%);
+}
+
+.toggle_button:active{
+	height: 62px;
+	margin-top: 2px;
+
+	transition: none;
+}
+
+.toggle_button:not(:checked)::after{
+	display: inline;
+	content: attr(data-off-label);
+	color: #000200;
+
+	transition: none;
+}
+.toggle_button:checked::after{
+	display: inline;
+	content: attr(data-on-label);
+	color: #66f;
+
+	text-shadow:
+		0px 0px 10px #aaf,
+		0px 0px 20px #aaf,
+		0px 0px 30px #aaf;
+	transition: 400ms;
+}
+.toggle_button:active::after{
+	transition: none;
+}

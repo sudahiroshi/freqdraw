@@ -6,27 +6,27 @@ window.addEventListener('load', function() {
     rawback();
 
     let mouse_condition = false;
-    let startButton = document.querySelector('#start');
-    let stopButton = document.querySelector('#stop');
-    startButton.addEventListener('click', (ev) => {
-        startButton.disabled = true;
-        stopButton.disabled = false;
-        start();
+    document.querySelector('#draw_check').addEventListener('change', ev => {
+        if( ev.srcElement.checked ) start();
+        else    stop();
     });
-    stopButton.addEventListener('click', (ev) => {
-        startButton.disabled = false;
-        stopButton.disabled = true;
-        stop();
-    });
-    this.document.querySelector('#fundamental_check').addEventListener('click', (ev) => {
-        let elm = ev.srcElement;
-        elm.classList.toggle("on");
-        if( elm.classList.contains('on') ) {
+    this.document.querySelector('#line_check').addEventListener('change', ev => {
+        if( ev.srcElement.checked )
             this.document.querySelector('#fundamental').style.display="block";
-        } else {
+        else
             this.document.querySelector('#fundamental').style.display="none";
-        }
     });
+
+    this.document.querySelector('#pen_check').addEventListener('change', ev => {
+        let pen = this.document.querySelector('#pen');
+        if( ev.srcElement.checked ) {
+            let ctx = pen.getContext('2d');
+            ctx.clearRect( 0, 0, pen.width, pen.height );
+            pen.style.display="block";
+        } else
+            pen.style.display="none";
+    });
+
     this.document.querySelector('#fundamental').addEventListener('mousemove', (ev) => {
         let x = ev.offsetX;
         let y = ev.offsetY;
@@ -42,15 +42,6 @@ window.addEventListener('load', function() {
             ctx.stroke();
         }
     });
-    this.document.querySelector('#pen_check').addEventListener('click', (ev) => {
-        let elm = ev.srcElement;
-        elm.classList.toggle("on");
-        if( elm.classList.contains('on') ) {
-            this.document.querySelector('#pen').style.display="block";
-        } else {
-            this.document.querySelector('#pen').style.display="none";
-        }
-    });
     this.document.querySelector('#pen').addEventListener('mousemove', (ev) => {
         if( mouse_condition) {
             let rect = ev.target.getBoundingClientRect();
@@ -60,7 +51,7 @@ window.addEventListener('load', function() {
             ctx.strokeStyle = "red";
             ctx.fillStyle = "rgb(200,50,50)";
             ctx.beginPath();
-            ctx.arc( x, y, 5, 0, Math.PI*2, false );
+            ctx.arc( x, y, 3, 0, Math.PI*2, false );
             ctx.fill();
         }
     });
@@ -70,11 +61,6 @@ window.addEventListener('load', function() {
     this.document.querySelector('#pen').addEventListener('mouseup', (ev) => {
         mouse_condition = false;
     });
-    this.document.querySelector('#clear').addEventListener('click', (ev) => {
-        let pen = this.document.querySelector('#pen');
-        let ctx = pen.getContext('2d');
-        ctx.clearRect( 0, 0, pen.width, pen.height );
-    })
 });
 
 // 背景
@@ -281,7 +267,6 @@ function rawback() {
     // 横のグリッド
     let Ysplit = 4;
     for( i=0; i<canvas.height; i+= canvas.height/Ysplit ) {
-        console.log(i);
         ctx.beginPath();
         ctx.moveTo( 0, i );
         ctx.lineTo( canvas.width, i );
@@ -291,7 +276,6 @@ function rawback() {
     // 縦のグリッド
     let Xsplit = 8;
     for( i=0; i<canvas.width; i+= canvas.width/Xsplit ) {
-        console.log(i);
         ctx.beginPath();
         ctx.moveTo( i, 0 );
         ctx.lineTo( i, canvas.height );
