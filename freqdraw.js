@@ -3,6 +3,8 @@ window.addEventListener('load', function() {
     back();
     db();
     par();
+    rawback();
+
     let mouse_condition = false;
     let startButton = document.querySelector('#start');
     let stopButton = document.querySelector('#stop');
@@ -245,6 +247,57 @@ function freqDraw() {
     }, 10);
 }
 
+function rawback() {
+    var canvas = document.getElementById('rawback');
+    var ctx = canvas.getContext('2d');
+
+    // 背景
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.closePath();
+
+    // 枠線
+    // 縦
+    ctx.setLineDash([]);
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, canvas.height);
+    ctx.lineTo(canvas.width, canvas.height);
+    ctx.lineTo(canvas.width, 0 );
+    ctx.lineTo(0,0);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height/2 );
+    ctx.lineTo(canvas.width, canvas.height/2);
+    ctx.stroke();
+
+    // 破線
+    ctx.setLineDash([1, 6]);
+    ctx.save();
+
+    // 横のグリッド
+    let Ysplit = 4;
+    for( i=0; i<canvas.height; i+= canvas.height/Ysplit ) {
+        console.log(i);
+        ctx.beginPath();
+        ctx.moveTo( 0, i );
+        ctx.lineTo( canvas.width, i );
+        ctx.stroke();
+    }
+
+    // 縦のグリッド
+    let Xsplit = 8;
+    for( i=0; i<canvas.width; i+= canvas.width/Xsplit ) {
+        console.log(i);
+        ctx.beginPath();
+        ctx.moveTo( i, 0 );
+        ctx.lineTo( i, canvas.height );
+        ctx.stroke();
+    }
+}
 function raw_graph() {
     var canvas = document.getElementById('rawgraph');
     var canvasCtx = canvas.getContext('2d');

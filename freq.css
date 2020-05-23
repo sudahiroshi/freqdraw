@@ -1,7 +1,7 @@
 #main {
 	position: relative;
 	width: 890px;
-	height: 325px;
+	height: 355px;
 	top: 100px;
 	left: 30px;
 }
@@ -53,7 +53,48 @@
 	position: absolute;
 	top: 360px;
 }
+#raw {
+	position: relative;
+	width: 890px;
+	height: 311px;
+	top: 100px;
+	left: 30px;
+}
 
+#rawYAxis {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#rawXAxis {
+	position: absolute;
+	top: 281px;
+	left: -30px;
+	width: 890px;
+}
+
+#rawgraph {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	z-index: 2;
+}
+
+#rawback {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	z-index: 1;
+}
+
+#rawpen {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	z-index: 4;
+	display: none;
+}
 .toggle {
 	margin: 0px;
 	height: 20px;

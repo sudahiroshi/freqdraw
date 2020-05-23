@@ -12,11 +12,19 @@
 <body>
     <!-- 中央寄せ -->
     <div id="raw">
-        <canvas id="rawgraph" width="800" height="300"></canvas>
-    </div>
-    <div id="main">
         <!-- 縦軸 -->
-        <canvas id="YAxis" width="30" height="325"></canvas>
+        <canvas id="rawYAxis" width="30" height="286"></canvas>
+        <!-- 描画 -->
+        <canvas id="rawgraph" width="800" height="256"></canvas>
+        <canvas id="rawback" width="800" height="256"></canvas>
+        <canvas id="rawpen" width="800" height="256"></canvas>
+        <!-- 横軸 -->
+        <canvas id="rawXAxis" width="890" height="30"></canvas>
+        <br>
+    </div>
+        <div id="main">
+        <!-- 縦軸 -->
+        <canvas id="YAxis" width="30" height="330"></canvas>
         <!-- 描画 -->
         <canvas id="graph" width="800" height="300"></canvas>
         <canvas id="background" width="800" height="300"></canvas>
