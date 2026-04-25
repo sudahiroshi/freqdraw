@@ -7,11 +7,11 @@ window.addEventListener('load', function() {
 
     let mouse_condition = false;
     document.querySelector('#draw_check').addEventListener('change', ev => {
-        if( ev.srcElement.checked ) start();
+        if( ev.target.checked ) start();
         else    stop();
     });
     this.document.querySelector('#line_check').addEventListener('change', ev => {
-        if( ev.srcElement.checked )
+        if( ev.target.checked )
             this.document.querySelector('#fundamental').style.display="block";
         else
             this.document.querySelector('#fundamental').style.display="none";
@@ -19,7 +19,7 @@ window.addEventListener('load', function() {
 
     this.document.querySelector('#pen_check').addEventListener('change', ev => {
         let pen = this.document.querySelector('#pen');
-        if( ev.srcElement.checked ) {
+        if( ev.target.checked ) {
             let ctx = pen.getContext('2d');
             ctx.clearRect( 0, 0, pen.width, pen.height );
             pen.style.display="block";
@@ -30,9 +30,9 @@ window.addEventListener('load', function() {
     this.document.querySelector('#fundamental').addEventListener('mousemove', (ev) => {
         let x = ev.offsetX;
         let y = ev.offsetY;
-        let ctx = ev.srcElement.getContext('2d');
-        let w = ev.srcElement.width;
-        let h = ev.srcElement.height;
+        let ctx = ev.target.getContext('2d');
+        let w = ev.target.width;
+        let h = ev.target.height;
         ctx.clearRect(0, 0, w, h);
         ctx.strokeStyle = "red";
         for( let i =1; i<10; i++ ) {
@@ -47,7 +47,7 @@ window.addEventListener('load', function() {
             let rect = ev.target.getBoundingClientRect();
             let x = ev.clientX - rect.left;
             let y = ev.clientY - rect.top;
-            let ctx = ev.srcElement.getContext('2d');
+            let ctx = ev.target.getContext('2d');
             ctx.strokeStyle = "red";
             ctx.fillStyle = "rgb(200,50,50)";
             ctx.beginPath();
@@ -443,6 +443,7 @@ function getAverageVolume(array) {
 
 // 描画開始
 function start() {
+    mic();
     freqDraw();
 }
 

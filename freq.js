@@ -1,16 +1,23 @@
-// AudioContext
-window.audio = window.AudioContext || window.webkitAudioContext;
-console.log( window.audio );
-var audioCtx = new window.audio();
+// AudioContext（ユーザー操作後に生成するためグローバル変数として宣言のみ）
+var audioCtx = null;
+var analyser = null;
 
-// MediaStreamSource
-
-// AnalyserNodeを生成
-var analyser = audioCtx.createAnalyser();
-
-// マイクの音を取り込む処理
+// マイクの音を取り込む処理（ユーザー操作時に呼び出す）
 function mic() {
-	navigator.mediaDevices.getUserMedia( {
+    // AudioContextの生成（既に作成済みの場合はスキップ）
+    if( !audioCtx ) {
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        // AnalyserNodeを生成
+        analyser = audioCtx.createAnalyser();
+    }
+
+    // suspendedの場合はresumeする
+    if( audioCtx.state === 'suspended' ) {
+        audioCtx.resume();
+    }
+
+    navigator.mediaDevices.getUserMedia( {
         audio: true
     }).then( stream => {
         // MediaStreamSourceNodeを生成し，マイクからの入力を格納する
@@ -21,6 +28,3 @@ function mic() {
         console.log(err);
     });
 }
-
-
-window.addEventListener("load", mic, false);
